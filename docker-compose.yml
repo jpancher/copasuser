@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  usuariosservice:
+    image: ${DOCKER_REGISTRY-}usuariosservice
+    build:
+      context: .
+      dockerfile: Usuarios/Dockerfile
+
+  usuariosdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
