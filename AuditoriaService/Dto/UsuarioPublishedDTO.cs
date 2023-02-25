@@ -1,4 +1,4 @@
-﻿namespace UsuariosService.Dto
+﻿namespace AuditoriaService.Dto
 {
     public class UsuarioPublishedDTO
     {

@@ -1,4 +1,6 @@
+using AuditoriaService.AsyncDataServices;
 using AuditoriaService.Data;
+using AuditoriaService.EventProcessing;
 using AuditoriaService.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,13 +32,17 @@ namespace AuditoriaService
         {
 
             services.AddControllers();
+            services.AddHostedService<MessageBusSubscriber>();
+            services.AddScoped<IUsuarioAuditContext, UsuarioAuditContext>();
+            services.AddScoped<IUsuarioAuditRepo, UsuarioAuditRepo>();
+            services.AddSingleton<IEventProcessor, EventProcessor>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuditoriaService", Version = "v1" });
             });
 
-            services.AddScoped<IUsuarioAuditContext, UsuarioAuditContext>();
-            services.AddScoped<IUsuarioAuditRepo, UsuarioAuditRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -61,7 +61,7 @@ namespace UsuariosService.Controllers
             try
             {
                 var usuarioPublishedDTO = _mapper.Map<UsuarioPublishedDTO>(usuarioLerDTO);
-                usuarioPublishedDTO.Event = "Usuario_Criado";
+                usuarioPublishedDTO.Evento = "Usuario_Inserido";
                 _messageBusClient.PublishNewEvent(usuarioPublishedDTO);
             }
             catch (Exception ex) 
@@ -85,7 +85,7 @@ namespace UsuariosService.Controllers
             try
             {
                 var usuarioPublishedDTO = _mapper.Map<UsuarioPublishedDTO>(usuarioLerDTO);
-                usuarioPublishedDTO.Event = "Usuario_Alterado";
+                usuarioPublishedDTO.Evento = "Usuario_Atualizado";
                 _messageBusClient.PublishNewEvent(usuarioPublishedDTO);
             }
             catch (Exception ex)
@@ -109,7 +109,7 @@ namespace UsuariosService.Controllers
             try
             {
                 var usuarioPublishedDTO = _mapper.Map<UsuarioPublishedDTO>(usuarioLerDTO);
-                usuarioPublishedDTO.Event = "Usuario_Apagado";
+                usuarioPublishedDTO.Evento = "Usuario_Removido";
                 _messageBusClient.PublishNewEvent(usuarioPublishedDTO);
             }
             catch (Exception ex)

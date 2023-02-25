@@ -14,11 +14,6 @@ namespace UsuariosService.Data
             
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Test");
-        //}
-
         public DbSet<Usuario> Usuarios { get; set; }
 
     }

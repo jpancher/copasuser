@@ -1,18 +1,6 @@
 version: '3.4'
 
 services:
-  usuariosservice:
-    image: ${DOCKER_REGISTRY-}usuariosservice
-    build:
-      context: .
-      dockerfile: Usuarios/Dockerfile
-
-  auditoriaservice:
-    image: ${DOCKER_REGISTRY-}auditoriaservice
-    build:
-      context: .
-      dockerfile: AuditoriaService/Dockerfile
-
   usuariosdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
 
@@ -28,6 +16,18 @@ services:
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
+  usuariosservice:
+    image: ${DOCKER_REGISTRY-}usuariosservice
+    build:
+      context: .
+      dockerfile: Usuarios/Dockerfile
+
+  auditoriaservice:
+    image: ${DOCKER_REGISTRY-}auditoriaservice
+    build:
+      context: .
+      dockerfile: AuditoriaService/Dockerfile
 
 volumes:
   mongo_data:
