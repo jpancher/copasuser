@@ -7,5 +7,27 @@ services:
       context: .
       dockerfile: Usuarios/Dockerfile
 
+  auditoriaservice:
+    image: ${DOCKER_REGISTRY-}auditoriaservice
+    build:
+      context: .
+      dockerfile: AuditoriaService/Dockerfile
+
   usuariosdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
+
+  usuarioauditdb:
+    image: mongo:5.0
+  
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+
+volumes:
+  mongo_data:

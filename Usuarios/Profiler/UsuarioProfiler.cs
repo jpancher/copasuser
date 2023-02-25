@@ -16,6 +16,7 @@ namespace UsuariosService.Profiler
             CreateMap<Models.Usuario, UsuarioLerDTO>();
             CreateMap<UsuarioLerDTO, Models.Usuario>();
             CreateMap<UsuarioCriarDTO, Models.Usuario>();
+            CreateMap<UsuarioLerDTO, UsuarioPublishedDTO>();
         }
     }
 }

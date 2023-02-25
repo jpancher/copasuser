@@ -19,18 +19,17 @@ namespace UsuariosService.Data
         }
 
         private static void SeedData(AppDbContext context)
-        {
-            //context.Database.EnsureCreated();
+        {   //context.Database.EnsureCreated();
             context.Database.Migrate();
 
             if (!context.Usuarios.Any())
-            {                
+            {
 
                 Console.WriteLine("--> Seeding Data...");
 
                 context.Usuarios.AddRange(
-                    new Models.Usuario() { Nome = "Fulano", Email = "fulano@gmail.com"},
-                    new Models.Usuario() { Nome = "Ciclano", Email = "ciclano@hotmail.com"},
+                    new Models.Usuario() { Nome = "Fulano", Email = "fulano@gmail.com" },
+                    new Models.Usuario() { Nome = "Ciclano", Email = "ciclano@hotmail.com" },
                     new Models.Usuario() { Nome = "Kerberos", Email = "kerberos@yahoo.com" }
                 );
 

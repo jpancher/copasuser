@@ -5,9 +5,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - "ConnectionStrings:DefaultConnection=Data Source=usuariosdb;Persist Security Info=True;database=UsuariosDb;User ID=sa;Password=A1b2c3d4e5f6"
+      - "RabbitMQHost=rabbitmq"
     ports:
-      - "80"
-      - "443"
+      - "8001:80"
+      - "9001:443"
+    depends_on:
+      - usuariosdb
+      - rabbitmq
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -16,7 +21,29 @@ services:
     container_name: usuariosdb
     environment:
         SA_PASSWORD: "A1b2c3d4e5f6"
-        ACCEPT_EULA: "Y"      
+        ACCEPT_EULA: "Y"   
     restart: always
     ports:
       - "1433:1433"
+
+  usuarioauditdb:
+    container_name: usuarioauditdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  auditoriaservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "DatabaseSettings:ConnectionString=mongodb://usuarioauditdb:27017"
+    ports:
+      - "8002:80"      
+    depends_on:
+      - usuarioauditdb
+
+  rabbitmq:
+    environment:
+      - "RabbitMQHost:rabbitmq"

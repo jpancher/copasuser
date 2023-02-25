@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using UsuariosService.Data;
 using UsuariosService.Repository;
 using Microsoft.EntityFrameworkCore;
+using UsuariosService.AsyncDataService;
 
 namespace Usuarios
 {
@@ -32,8 +33,15 @@ namespace Usuarios
 
             //services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
             //services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Integrated Security=true;")); //SQL ON LOCALHOST
-            services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"Server=localhost;database=UsuariosDb;User Id=sa;Password=A1b2c3d4e5f6", options => options.EnableRetryOnFailure())); //SQL ON DOCKER
+            //services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"Server=localhost;database=UsuariosDb;User Id=sa;Password=A1b2c3d4e5f6", options => options.EnableRetryOnFailure())); //SQL ON DOCKER
+            //services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), options => options.EnableRetryOnFailure())); //SQL ON DOCKER
+            
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DockerConnection")));
+            
             services.AddScoped<IUsuarioRepo, UsuarioRepo>();
+            services.AddSingleton<IMessageBusClient, MessageBusClient>();
+
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
