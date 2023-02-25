@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
 using UsuariosService.Dto;

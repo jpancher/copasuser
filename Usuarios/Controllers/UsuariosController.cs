@@ -10,6 +10,7 @@ using UsuariosService.Dto;
 using UsuariosService.Models;
 using UsuariosService.Profiler;
 using UsuariosService.AsyncDataService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UsuariosService.Controllers
 {
@@ -31,6 +32,7 @@ namespace UsuariosService.Controllers
             _messageBusClient = messageBusClient;
 
         }
+        
         [HttpGet]
         public ActionResult<IEnumerable<UsuarioLerDTO>> GetUsuarios()
         {
@@ -48,7 +50,7 @@ namespace UsuariosService.Controllers
             
             return NotFound();
         }
-
+        
         [HttpPost]
         public ActionResult<UsuarioLerDTO> CriarUsuario(UsuarioCriarDTO usuarioCriarDTO)
         {
@@ -73,6 +75,7 @@ namespace UsuariosService.Controllers
 
         }
 
+        [Authorize]
         [HttpPut]
         public ActionResult<UsuarioLerDTO> AtualizarUsuario(UsuarioLerDTO usuarioLerDTO)
         {
@@ -97,6 +100,7 @@ namespace UsuariosService.Controllers
 
         }
 
+        [Authorize]
         [HttpDelete]
         public ActionResult<bool> ApagarUsuario(int id)
         {

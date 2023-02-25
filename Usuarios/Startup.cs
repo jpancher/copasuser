@@ -15,6 +15,7 @@ using UsuariosService.Data;
 using UsuariosService.Repository;
 using Microsoft.EntityFrameworkCore;
 using UsuariosService.AsyncDataService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Usuarios
 {
@@ -30,18 +31,18 @@ namespace Usuarios
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             //services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
-            //services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Integrated Security=true;")); //SQL ON LOCALHOST
-            //services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"Server=localhost;database=UsuariosDb;User Id=sa;Password=A1b2c3d4e5f6", options => options.EnableRetryOnFailure())); //SQL ON DOCKER
-            //services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), options => options.EnableRetryOnFailure())); //SQL ON DOCKER
-            
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DockerConnection")));
             
             services.AddScoped<IUsuarioRepo, UsuarioRepo>();
             services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt =>
+                {
+                    opt.Audience = Configuration["AAD:ResourceId"];
+                    opt.Authority = $"{Configuration["AAD:InstanceId"]}{Configuration["AAD:TenantId"]}";
+                });
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
@@ -64,6 +65,7 @@ namespace Usuarios
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
