@@ -17,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using UsuariosService.AsyncDataService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace Usuarios
+namespace UsuariosService
 {
     public class Startup
     {

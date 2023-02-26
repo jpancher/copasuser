@@ -19,7 +19,7 @@ namespace AuditoriaService.Controllers
         }
 
         [HttpPost]
-        public ActionResult insereAudit(UsuarioAudit usuarioAudit)
+        private ActionResult insereAudit(UsuarioAudit usuarioAudit)
         {
             _repository.insereUsuarioAudit(usuarioAudit);
             return Ok();

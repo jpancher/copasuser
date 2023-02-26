@@ -45,13 +45,13 @@ namespace AuditoriaService.EventProcessing
             switch(eventType.Evento)
             {
                 case "Usuario_Inserido":
-                    Console.WriteLine("User Event Detected");
+                    Console.WriteLine("--> User Event Detected");
                     return EventType.Usuario_Inserido;
                 case "Usuario_Atualizado":
-                    Console.WriteLine("User Event Detected");
+                    Console.WriteLine("--> User Event Detected");
                     return EventType.Usuario_Atualizado;
                 case "Usuario_Removido":
-                    Console.WriteLine("User Event Detected");
+                    Console.WriteLine("--> User Event Detected");
                     return EventType.Usuario_Removido;
                 default:
                     Console.WriteLine("--> Could not determine the event type");

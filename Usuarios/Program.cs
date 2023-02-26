@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Usuarios
+namespace UsuariosService
 {
     public class Program
     {

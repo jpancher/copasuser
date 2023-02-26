@@ -1,13 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32602.291
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsuariosService", "Usuarios\UsuariosService.csproj", "{5A5D9A33-FA22-4944-8175-E0C5AF09884F}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{51F2A3BA-7360-45B6-AA73-ADB01954DCAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuditoriaService", "AuditoriaService\AuditoriaService.csproj", "{9736AF61-4F5D-45BD-B2B8-167CE0FE3C3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsuariosService.test.NUnit", "UsuariosService.test\UsuariosService.test.NUnit.csproj", "{50DF080F-8C13-4DD2-86AD-D652752F7FCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsuarioService.test.xUnit", "UsuarioService.test.xUnit\UsuarioService.test.xUnit.csproj", "{57F9F6C8-E2F4-4508-80F2-B430974312A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuditoriaService.test.xUnit", "AuditoriaService.test.xUnit\AuditoriaService.test.xUnit.csproj", "{13C442A2-4D65-48C6-B6C0-5F76DB8D35C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureAPIClient", "SecureAPIClient\SecureAPIClient.csproj", "{83705689-2EC0-4C62-90E3-8385857B501B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +35,22 @@ Global
 		{9736AF61-4F5D-45BD-B2B8-167CE0FE3C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9736AF61-4F5D-45BD-B2B8-167CE0FE3C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9736AF61-4F5D-45BD-B2B8-167CE0FE3C3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50DF080F-8C13-4DD2-86AD-D652752F7FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50DF080F-8C13-4DD2-86AD-D652752F7FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50DF080F-8C13-4DD2-86AD-D652752F7FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50DF080F-8C13-4DD2-86AD-D652752F7FCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F9F6C8-E2F4-4508-80F2-B430974312A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F9F6C8-E2F4-4508-80F2-B430974312A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F9F6C8-E2F4-4508-80F2-B430974312A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F9F6C8-E2F4-4508-80F2-B430974312A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13C442A2-4D65-48C6-B6C0-5F76DB8D35C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13C442A2-4D65-48C6-B6C0-5F76DB8D35C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13C442A2-4D65-48C6-B6C0-5F76DB8D35C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13C442A2-4D65-48C6-B6C0-5F76DB8D35C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83705689-2EC0-4C62-90E3-8385857B501B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83705689-2EC0-4C62-90E3-8385857B501B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83705689-2EC0-4C62-90E3-8385857B501B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83705689-2EC0-4C62-90E3-8385857B501B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

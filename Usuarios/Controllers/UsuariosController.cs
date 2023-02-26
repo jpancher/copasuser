@@ -32,9 +32,9 @@ namespace UsuariosService.Controllers
             _messageBusClient = messageBusClient;
 
         }
-        
+
         [HttpGet]
-        public ActionResult<IEnumerable<UsuarioLerDTO>> GetUsuarios()
+        public IActionResult GetUsuarios()
         {
             var todosUsuarios = _repository.SelecionarTodos();
 
@@ -52,7 +52,7 @@ namespace UsuariosService.Controllers
         }
         
         [HttpPost]
-        public ActionResult<UsuarioLerDTO> CriarUsuario(UsuarioCriarDTO usuarioCriarDTO)
+        public IActionResult CriarUsuario(UsuarioCriarDTO usuarioCriarDTO)
         {
             var usuarioModel = _mapper.Map<Usuario>(usuarioCriarDTO);
             _repository.Criar(usuarioModel);            
@@ -74,35 +74,36 @@ namespace UsuariosService.Controllers
             return CreatedAtRoute(nameof(GetUsuario), new { Id = usuarioLerDTO.Id }, usuarioLerDTO);
 
         }
-
-        [Authorize]
+        
         [HttpPut]
-        public ActionResult<UsuarioLerDTO> AtualizarUsuario(UsuarioLerDTO usuarioLerDTO)
+        public IActionResult AtualizarUsuario(UsuarioLerDTO usuarioLerDTO)
         {
             var usuarioModel = _mapper.Map<Usuario>(usuarioLerDTO);
-            _repository.Salvar(usuarioModel);
-
-            usuarioLerDTO = _mapper.Map<UsuarioLerDTO>(usuarioModel);
-
-            //send async message
-            try
+            if (_repository.Salvar(usuarioModel))
             {
-                var usuarioPublishedDTO = _mapper.Map<UsuarioPublishedDTO>(usuarioLerDTO);
-                usuarioPublishedDTO.Evento = "Usuario_Atualizado";
-                _messageBusClient.PublishNewEvent(usuarioPublishedDTO);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"--> Could not send asynchronously: {ex.Message}");
-            }
+                usuarioLerDTO = _mapper.Map<UsuarioLerDTO>(usuarioModel);
 
-            return CreatedAtRoute(nameof(GetUsuario), new { Id = usuarioLerDTO.Id }, usuarioLerDTO);
+                //send async message
+                try
+                {
+                    var usuarioPublishedDTO = _mapper.Map<UsuarioPublishedDTO>(usuarioLerDTO);
+                    usuarioPublishedDTO.Evento = "Usuario_Atualizado";
+                    _messageBusClient.PublishNewEvent(usuarioPublishedDTO);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"--> Could not send asynchronously: {ex.Message}");
+                }
 
+                return CreatedAtRoute(nameof(GetUsuario), new { Id = usuarioLerDTO.Id }, usuarioLerDTO);
+            }
+            else
+                return NotFound();
         }
 
         [Authorize]
         [HttpDelete]
-        public ActionResult<bool> ApagarUsuario(int id)
+        public IActionResult ApagarUsuario(int id)
         {
             Usuario usuario = _repository.SelecionarPeloId(id);
             UsuarioLerDTO usuarioLerDTO = _mapper.Map<UsuarioLerDTO>(usuario);
